@@ -1,27 +1,50 @@
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Container } from '@mui/material'
+import mockData from 'mock/mockData.json'
+import { NextPage } from 'next'
 import React from 'react'
 
-import { Link } from 'components/atoms'
+import { ProductType } from 'types'
 
-export default function Home() {
+import { ProductItem } from 'components/atoms'
+
+interface HomePageProps {
+  products: ProductType[]
+}
+
+const Home: NextPage<HomePageProps> = ({ products }) => {
   return (
     <Container maxWidth="lg">
       <Box
-        sx={{
+        sx={(theme) => ({
           my: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
+          display: 'grid',
+          gridGap: '1rem',
+          gridTemplateColumns: `repeat(auto-fit, minmax(18rem, auto))`,
+          gridAutoRows: 'minmax(18rem, auto)',
           alignItems: 'center',
-        }}
+        })}
       >
-        <Typography variant="h4" component="h1" gutterBottom>
-          Material UI - Next.js example in TypeScript
-        </Typography>
-        <Link href="/about" color="secondary">
-          Go to the about page
-        </Link>
+        {products.map((product) => (
+          <ProductItem key={product.id} {...product} />
+        ))}
       </Box>
     </Container>
   )
 }
+
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  /* const res = await fetch('https://.../posts')
+  const posts = await res.json() */
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      products: mockData,
+    },
+  }
+}
+
+export default Home
