@@ -1,0 +1,18 @@
+{
+  "printWidth": 140,
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true,
+  "importOrder": [
+    "^types|utilities(.*)$",
+    "^components/organisms(.*)$",
+    "^components/molecules(.*)$",
+    "^components/atoms(.*)$",
+    "^store(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
+}
